@@ -1,0 +1,64 @@
+version: "3.4"
+
+services:
+
+  pingfederate:
+    image: pingidentity/pingfederate:edge
+    env_file:
+      - ${HOME}/.pingidentity/devops
+      - pf.env
+      - config.env
+    ports:
+      - 9031:9031
+      - 9999:9999
+    networks:
+      - pingnet-internal
+    cap_add:
+      - NET_ADMIN
+    volumes:
+       - ../server_profiles/pingfederate:/opt/in
+
+  pingdatagovernance:
+    image: pingidentity/pingauthorize:edge
+    env_file:
+      - ${HOME}/.pingidentity/devops
+      - config.env
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "9080:80"
+      - "7443:1443"
+    volumes:
+       - ../server_profiles/pingdatagovernance:/opt/in
+    networks:
+      - pingnet-internal
+
+  pingdatagovernancepap:
+    image: pingidentity/pingauthorizepap:edge
+    environment:
+      - HTTPS_PORT=8443
+    env_file:
+      - ${HOME}/.pingidentity/devops
+      - config.env
+    ulimits:
+      nproc:
+        soft: 16384
+        hard: 16384
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "8443:8443"
+    networks:
+      - pingnet-internal
+    volumes:
+       - ../server_profiles/pingdatagovernancepap:/opt/in
+
+
+networks:
+    pingnet-internal:
