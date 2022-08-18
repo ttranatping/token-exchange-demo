@@ -62,7 +62,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://a69bb65d2552:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://95dbd9a8db15:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -387,10 +387,16 @@
                 },
                 "attributeContract": {
                     "coreAttributes": [],
-                    "extendedAttributes": [{
-                        "name": "sub",
-                        "multiValued": false
-                    }]
+                    "extendedAttributes": [
+                        {
+                            "name": "complexJSON",
+                            "multiValued": false
+                        },
+                        {
+                            "name": "sub",
+                            "multiValued": false
+                        }
+                    ]
                 },
                 "selectionSettings": {"resourceUris": []}
             }],
@@ -667,10 +673,16 @@
                     },
                     "type": "TOKEN_EXCHANGE_PROCESSOR_POLICY"
                 },
-                "attributeContractFulfillment": {"sub": {
-                    "source": {"type": "TOKEN_EXCHANGE_PROCESSOR_POLICY"},
-                    "value": "provider"
-                }},
+                "attributeContractFulfillment": {
+                    "complexJSON": {
+                        "source": {"type": "EXPRESSION"},
+                        "value": "#base64Decoder = @java.util.Base64@getDecoder(),\n#jsonParser = new org.json.simple.parser.JSONParser(),\n\n#subjectToken = #this.get(\"context.HttpRequest\").getObjectValue().getParameter(\"subject_token\"),\n#subjectTokenContentEncoded = #subjectToken.split(\"\\\\.\")[1],\n\n#subjectTokenContentDecoded = new java.lang.String(#base64Decoder.decode(#subjectTokenContentEncoded)),\n\n#jsonParser.parse(#subjectTokenContentDecoded)"
+                    },
+                    "sub": {
+                        "source": {"type": "TOKEN_EXCHANGE_PROCESSOR_POLICY"},
+                        "value": "provider"
+                    }
+                },
                 "id": "urn:ietf:params:oauth:grant-type:token-exchange|tokenExchangeProcessor|defaultATM",
                 "attributeSources": [],
                 "issuanceCriteria": {"conditionalCriteria": []},
