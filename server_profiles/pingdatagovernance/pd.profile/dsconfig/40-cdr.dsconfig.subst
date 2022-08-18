@@ -34,3 +34,16 @@ dsconfig create-gateway-api-endpoint \
     --set inbound-base-path:/mockapi  \
     --set outbound-base-path:/mockapi  \
     --set "api-server:Mock API"
+
+dsconfig create-external-server \
+    --server-name "PingFederate API"  \
+    --type api  \
+    --set base-url:https://${PINGFEDERATE_HOSTNAME}  \
+    --set hostname-verification-method:allow-all  \
+    --set "trust-manager-provider:Blind Trust"
+
+dsconfig create-gateway-api-endpoint \
+    --endpoint-name PingFederateJWKS  \
+    --set inbound-base-path:/pf/JWKS  \
+    --set outbound-base-path:/pf/JWKS  \
+    --set "api-server:PingFederate API"

@@ -4,12 +4,12 @@
 core:
   PINGDIRECTORY_HOSTNAME: ${PINGDIRECTORY_HOSTNAME}
   PINGFEDERATE_HOSTNAME: ${PINGFEDERATE_HOSTNAME}
-  # Add policy configuration keys here. The value for a policy 
-  # configuration key may be provided via an environment variable 
+  # Add policy configuration keys here. The value for a policy
+  # configuration key may be provided via an environment variable
   # using the notation '${environment-variable}'.
   #
   #  PolicyConfigurationKeyName: PolicyConfigurationKeyValue
-  AttributeProcessing.SpEL.AllowedClasses: "com.nimbusds.jwt.SignedJWT,java.util.Base64,org.springframework.util.CollectionUtils"
+  AttributeProcessing.SpEL.AllowedClasses: "com.nimbusds.jwt.SignedJWT,java.util.Base64,org.springframework.util.CollectionUtils,org.apache.commons.collections4.CollectionUtils"
   RecentRequest.buffer.size: 60
 keystores:
   #  - name: CustomKeyStore
