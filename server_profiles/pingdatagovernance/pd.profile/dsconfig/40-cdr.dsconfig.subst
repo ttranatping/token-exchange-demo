@@ -47,3 +47,14 @@ dsconfig create-gateway-api-endpoint \
     --set inbound-base-path:/pf/JWKS  \
     --set outbound-base-path:/pf/JWKS  \
     --set "api-server:PingFederate API"
+
+dsconfig create-external-server \
+    --server-name "HTTPBin.org"  \
+    --type api  \
+    --set "base-url:https://httpbin.org"  
+
+dsconfig create-gateway-api-endpoint \
+    --endpoint-name "HTTPBin.org-GET"  \
+    --set inbound-base-path:/get  \
+    --set outbound-base-path:/get  \
+    --set "api-server:HTTPBin.org"

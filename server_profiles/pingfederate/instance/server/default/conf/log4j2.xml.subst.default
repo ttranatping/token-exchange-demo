@@ -1215,7 +1215,7 @@
         <!--
         <Logger name="com.pingidentity.pf.datastore.other" level="TRACE" />
         -->
-        <Logger name="org.sourceid" level="DEBUG" />
+        <Logger name="org.sourceid" level="INFO" />
         <Logger name="org.sourceid.saml20.util.SystemUtil" level="INFO" additivity="false">
             <AppenderRef ref="CONSOLE" />
             <AppenderRef ref="FILE" />
@@ -1248,7 +1248,7 @@
             WARNING: This is intended for debugging purposes only.
         -->
         <!--
-        <Logger name="org.sourceid.util.log.PolicyTreeLogger" level="DEBUG" />
+        <Logger name="org.sourceid.util.log.PolicyTreeLogger" level="INFO" />
         -->
 
         <Logger name="com.jolbox" level="OFF" />
